@@ -12,6 +12,8 @@ import CreateTodoBottomTab from '../../components/CreateTodoBottomTab';
 
 const CreateNotesScreen = () => {
   const [noteData, setNoteData] = useState({title: '', note: ''});
+  const [colorCode, setColorCode] = useState('');
+
   const navigation = useNavigation();
 
   const handleBackNavigation = () => {
@@ -21,10 +23,13 @@ const CreateNotesScreen = () => {
   const handleInputChange = (name, value) => {
     setNoteData(prevData => ({...prevData, [name]: value}));
   };
-
+  const handleColorPicker = color => {
+    setColorCode(color);
+    console.log('selected color------', color);
+  };
   return (
     <>
-      <View style={styles.container}>
+      <View style={[styles.container, {backgroundColor: colorCode}]}>
         <View>
           <TouchableOpacity onPress={handleBackNavigation} activeOpacity={0.6}>
             <Text style={styles.backTxt}>Back</Text>
@@ -45,7 +50,7 @@ const CreateNotesScreen = () => {
           />
         </View>
       </View>
-      <CreateTodoBottomTab />
+      <CreateTodoBottomTab colorPicker={handleColorPicker} />
     </>
   );
 };
